@@ -17,9 +17,25 @@ async function loadCharacters(url) {
         const response = await fetch(url);
         const responsejson = await response.json();
 
-        response.results.forEach((character) => {
-            
+        responsejson.results.forEach((character) => {
+            const card = document.createElement("div")
+            card.style.backgroundImage = `url('https://starwars-visualguide.com/assets/img/characters/1.jpg')`
+            card.className = "cards"
+
+            const characterNameBG = document.createElement("div")
+            characterNameBG.className = "character-name-bg"
+
+            const characterName = document.createElement("span")
+            characterName.className = "character-name"
+            characterName.innerText = `${character.name}`
+
+            characterNameBG.appendChild(characterName)
+            card.appendChild(characterNameBG)
+
+            mainContent.appendChild(card)
         });
+
+        currentPageUrl = url
 
     } catch (error)  {
         alert('Erro ao carregar personagens')
