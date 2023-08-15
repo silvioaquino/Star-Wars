@@ -26,7 +26,8 @@ async function loadCharacters(url) {
 
         responseJson.results.forEach((character) => {
             const card = document.createElement("div")
-            card.style.backgroundImage = `url('https://starwars-visualguide.com/assets/img/characters/${character.url.replace(/\D/g,"")}.jpg')`
+            card.style.backgroundImage = 
+            `url('https://starwars-visualguide.com/assets/img/characters/${character.url.replace(/\D/g,"")}.jpg')`
             card.className = "cards"
 
             const characterNameBG = document.createElement("div")
@@ -38,6 +39,46 @@ async function loadCharacters(url) {
 
             characterNameBG.appendChild(characterName)
             card.appendChild(characterNameBG)
+
+            card.onclick = () => {
+                const modal = document.getElementById("modal")
+                modal.style.visibility = "visible"
+
+                const modalContent = document.getElementById("modal-content")
+                modalContent.innerHTML = ""
+
+                const characterImage = document.createElement("div")
+                characterImage.style.backgroundImage = 
+                `url('https://starwars-visualguide.com/assets/img/characters/${character.url.replace(/\D/g,"")}.jpg')`
+                characterImage.className = "character-image"
+
+                const name = document.createElement("span")
+                name.className = "character-details"
+                name.innerText = `Nome:${character.name}`
+
+                const characterHeight = document.createElement("span")
+                characterHeight.className = "character-details"
+                characterHeight.innerText = `Altura:${character.height}`
+
+                const mass = document.createElement("span")
+                mass.className = "character-details"
+                mass.innerText = `Peso:${character.mass}`
+
+                const eyeColor = document.createElement("span")
+                eyeColor.className = "character-details"
+                eyeColor.innerText = `Cor dos Olhos:${character.eye_color}`
+
+                const birthYear = document.createElement("span")
+                birthYear.className = "character-details"
+                birthYear.innerText = `Nascimento:${character.birth_year}`
+
+                modalContent.appendChild(characterImage)
+                modalContent.appendChild(name)
+                modalContent.appendChild(characterHeight)
+                modalContent.appendChild(mass)
+                modalContent.appendChild(eyeColor)
+                modalContent.appendChild(birthYear)
+            }
 
             mainContent.appendChild(card)
         });
@@ -87,3 +128,8 @@ async function loadPreviousPage() {
         alert('Erro ao carregar a página anterior')
     }
 } 
+
+function hideModal() {
+    const modal = document.getElementById('modal')
+    modal.style.visibility = "hidden"
+}
