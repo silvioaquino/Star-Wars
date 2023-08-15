@@ -22,9 +22,9 @@ async function loadCharacters(url) {
 
     try {
         const response = await fetch(url);
-        const responsejson = await response.json();
+        const responseJson = await response.json();
 
-        responsejson.results.forEach((character) => {
+        responseJson.results.forEach((character) => {
             const card = document.createElement("div")
             card.style.backgroundImage = `url('https://starwars-visualguide.com/assets/img/characters/${character.url.replace(/\D/g,"")}.jpg')`
             card.className = "cards"
@@ -41,6 +41,14 @@ async function loadCharacters(url) {
 
             mainContent.appendChild(card)
         });
+
+        const nextButton = document.getElementById('next-button')
+        const backButton = document.getElementById('back-button')
+
+        nextButton.disabled = !responseJson.next
+        backButton.disabled = !responseJson.previous
+
+        backButton.style.visibility = responseJson.previous? "visible" : "hidden"
 
         currentPageUrl = url
 
