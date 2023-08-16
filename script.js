@@ -58,11 +58,11 @@ async function loadCharacters(url) {
 
                 const characterHeight = document.createElement("span")
                 characterHeight.className = "character-details"
-                characterHeight.innerText = `Altura:${character.height}`
+                characterHeight.innerText = `Altura:${convertHeight(character.height)}`
 
                 const mass = document.createElement("span")
                 mass.className = "character-details"
-                mass.innerText = `Peso:${character.mass}`
+                mass.innerText = `Peso:${convertMass(character.mass)}`
 
                 const eyeColor = document.createElement("span")
                 eyeColor.className = "character-details"
@@ -70,7 +70,7 @@ async function loadCharacters(url) {
 
                 const birthYear = document.createElement("span")
                 birthYear.className = "character-details"
-                birthYear.innerText = `Nascimento:${character.birth_year}`
+                birthYear.innerText = `Nascimento:${convertBirthYear(character.birth_year)}`
 
                 modalContent.appendChild(characterImage)
                 modalContent.appendChild(name)
@@ -149,4 +149,28 @@ function convertEyeColor(eyeColor) {
     };
 
     return cores[eyeColor.toLowerCase()] || eyeColor; 
+}
+
+function convertHeight(height) {
+    if (height === "unknown") {
+        return "desconhecida"
+    }
+
+    return (height / 100).toFixed(2);
+}
+
+function convertMass(mass) {
+    if (mass === "unknown") {
+        return "desconhecido"
+    }
+
+    return `${mass} kg`
+}
+
+function convertBirthYear(birthYear) {
+    if (birthYear === "unknown") {
+        return "desconhecido"
+    }
+
+    return birthYear
 }
